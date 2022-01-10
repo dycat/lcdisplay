@@ -1,0 +1,11 @@
+[Unit]
+Description=A LCD Clock
+After=multi-user.target
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/python3 /home/ubuntu/lcdisplay/time.py
+
+[Install]
+WantedBy=nulti-user.target
