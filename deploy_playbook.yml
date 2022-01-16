@@ -1,0 +1,35 @@
+---
+# This ansible playbook deploys the script to the raspberry pi
+
+- hosts: raspi
+  become: yes
+  remote_user: ubuntu
+  tasks:
+    - name: copy src files
+      copy:
+        src: ./src
+        dest: /home/ubuntu/lcdclock
+
+    - name: copy clock systemd config
+      copy:
+        src: ./clock.service
+        dest: /etc/systemd/system/
+
+    - name: copy requirements
+      copy:
+        src: ./requirements.txt
+        dest: /home/ubuntu/lcdclock
+
+    - name: run pip install 
+      pip:
+        requirements: /home/ubuntu/lcdclock/requirements.txt
+    
+    - name: start service
+      systemd:
+        state: restarted 
+        name: clock
+        enabled: yes
+        daemon_reload: yes
+
+
+
