@@ -5,6 +5,7 @@ After=multi-user.target
 [Service]
 Type=simple
 Restart=always
+RestartSec=10s
 ExecStart=/usr/bin/python3 /home/ubuntu/lcdclock/src/time.py
 
 [Install]
